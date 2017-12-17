@@ -1,0 +1,195 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+void movement(int*, int*, char*, char**);
+void check(int*, int*, char**);
+int count(int, char**);
+
+
+int main(int argc, char* argv[])
+{
+	/* 아래 freopen 함수는 input.txt를 read only 형식으로 열고, 표준입력(키보드) 대신 input.txt 로 부터 읽어오겠다는 의미의 코드입니다.
+	만약 본인 PC 에서 테스트 할 때는, 입력값을 input.txt에 저장한 후 freopen 함수를 사용하면
+	그 아래에서 scanf 함수를 사용하여 표준입력 대신 input.txt 파일로 부터 입력값을 읽어 올 수 있습니다.
+	또한, 본인 PC에서 freopen 함수를 사용하지 않고 표준입력을 사용하여 테스트하셔도 무방합니다.
+	단, Codeground 시스템에서 "제출하기" 할 때에는 반드시 freopen 함수를 지우거나 주석(//) 처리 하셔야만 합니다. */
+
+
+	setbuf(stdout, NULL);
+
+	int TC;
+	int test_case;
+
+	scanf("%d", &TC);
+	for (test_case = 1; test_case <= TC; test_case++) {
+		// 이 부분에서 알고리즘 프로그램을 작성하십시오. 기본 제공된 코드를 수정 또는 삭제하고 본인이 코드를 사용하셔도 됩니다.
+		int x=1;
+		int y=1;
+		char direction='R';
+		char **map;
+		char **check_map;
+		int n;
+		int result =0;
+		char *repository;
+
+		scanf("%d", &n);
+
+		map = (char**)malloc(sizeof(char*)*n);
+		check_map = (char**)malloc(sizeof(char*)*n);
+		assert(map != NULL);
+		assert(check_map != NULL);
+
+		for (int i = 0; i < n; i++)
+		{
+			*(map + i) = (char*)malloc(sizeof(char)*n);
+			*(check_map + i) = (char*)malloc(sizeof(char)*n);
+			assert(*(check_map + i) != NULL);
+			assert(*(map + i) != NULL);
+		}
+
+		repository = (char*)malloc(sizeof(char)*n*n);
+		for (int i = 0; i < n*n; i++)
+		{
+			repository[i] = getchar();
+			if (repository[i] == '\n') i--;
+		}
+		
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				map[i][j] = repository[i*n + j];
+				*(*(check_map + j) + i) = '0';
+			}
+		}
+		free(repository);
+		repository = NULL;
+
+		while (1)
+		{
+			if (x<=0 || y<=0 || x>n || y>n) break;
+			if (map[x - 1][y - 1] != '0')	check(&x, &y, check_map);
+			movement(&x, &y, &direction,map);
+			
+		}
+
+		result = count(n, check_map);
+		
+		
+		for (int i = 0; i < n; i++)
+		{
+			free(*(map + i));
+			*(map + i) = NULL;
+		}
+		free(map);
+		map = NULL;
+		
+
+		for (int i = 0; i < n; i++)
+		{
+			free(*(check_map + i));
+			*(check_map + i) = NULL;
+		}
+		free(check_map);
+		check_map = NULL;	
+
+							
+		// 이 부분에서 정답을 출력하십시오.
+		printf("Case #%d\n", test_case);
+		printf("%d\n", result);
+	}
+
+	return 0;	// 정상종료 시 반드시 0을 리턴해야 합니다.
+}
+
+
+void movement(int*x, int*y, char*direction, char**map)
+{
+	if (map[*x - 1][*y - 1] == '2')
+	{
+		if (*direction == 'R')
+		{
+			*direction = 'D';
+			(*x)++;
+		}
+		else if (*direction == 'U')
+		{
+			*direction = 'L';
+			(*y)--;
+		}
+		else if (*direction == 'D')
+		{
+			*direction = 'R';
+			(*y)++;
+		}
+		else
+		{
+			*direction = 'U';
+			(*x)--;
+		}
+	}
+	else if (map[*x - 1][*y - 1] == '1')
+	{
+		if (*direction == 'R')
+		{
+			*direction = 'U';
+			(*x)--;
+		}
+		else if (*direction == 'U')
+		{
+			*direction = 'R';
+			(*y)++;
+		}
+		else if (*direction == 'D')
+		{
+			*direction = 'L';
+			(*y)--;
+		}
+		else
+		{
+			*direction = 'D';
+			(*x)++;
+		}
+	}
+	else
+	{
+		if (*direction == 'R')
+		{
+			(*y)++;
+		}
+		else if (*direction == 'U')
+		{
+			(*x)--;
+		}
+		else if (*direction == 'D')
+		{
+			(*x)++;
+		}
+		else
+		{
+			(*y)--;
+		}
+	}
+
+}
+
+void check(int*x, int*y, char**check_map)
+{
+	check_map[*x - 1][*y - 1] = '1';
+}
+
+int count(int n, char**check_map)
+{
+	int count = 0;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			if (check_map[j][i] == '1') count++;
+		}
+	}
+	return count;
+
+}
+

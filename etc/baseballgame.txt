@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+
+int ans[3];
+
+void inputNum(int* input, int len)
+{
+	int i;
+	printf("Input Number : ");
+
+	for (i = 0; i< len; i++)
+	{
+		scanf("%1d", &input[i]);
+	}
+
+}
+
+void checkNum(int* input, int len, int* strike, int* ball)
+{
+	int i, j;
+	for (i = 0; i<len; i++)
+	{
+		for (j = 0; j<len; j++)
+		{
+			if (i == j && ans[i] == input[j])
+			{
+				(*strike)++;
+			}
+			else if (ans[i] == input[j])
+			{
+				(*ball)++;
+			}
+
+		}
+	}
+}
+
+
+
+void randomNum(int* ans, int len)
+{
+	int i = 0;
+	srand(time(NULL));
+	rand(); rand(); rand();
+	srand(rand());
+
+	for (i = 0; i<len; i++)
+	{
+		ans[i] = (rand() % 10);
+		//printf("ans[%d] : %d\n", i, ans[i]);
+	}
+}
+
+int printRes(const int* strike, const int* ball)
+{
+	if (*strike == 3)
+	{
+		printf("Correct!! You win!!\n\n");
+		return 1;
+	}
+	else {
+		printf("%d Strike!! %d Ball!!\n\n", *strike, *ball);
+		return 0;
+	}
+
+	
+}
+
+int playgame()
+{
+	int input[3];
+	int strike = 0;
+	int ball = 0;
+
+	inputNum(input, sizeof(input) / sizeof(input[0]));
+	checkNum(input, sizeof(input) / sizeof(input[0]), &strike, &ball);
+	return printRes(&strike, &ball);
+
+}
+
+
+
+int main()
+{
+	randomNum(ans, sizeof(ans) / sizeof(ans[0]));
+	printf("== Base Ball Game ==\n\n");
+
+	while (1)
+	{
+		if (playgame() == 1) break;
+	}
+
+	return 0;
+}

@@ -1,0 +1,204 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+
+void insertCoin(int* user_money, int* com_money)
+{
+	int user;
+	int com;
+
+	printf("Insert your coin!!");
+	scanf("%d", &user);
+	*user_money += user;
+	printf("Your coin is %d\n", *user_money);
+	printf("\n");
+
+	printf("Insert computer's coin!!");
+	scanf("%d", &com);
+	*com_money += com;
+	printf("Computer's coin is %d\n", *com_money);
+	printf("\n");
+}
+
+void printCoin(int user_Money, int com_Money)
+{
+	printf("User Money = %6d, Com_Money = %6d\n\n", user_Money, com_Money);
+
+}
+
+
+
+int warning(int user_Money, int com_Money, int user_Bet)
+{
+if(user_Bet <= 0){
+	printf("You can't bet 0 or negative number\n\n");
+	return 1;
+}
+else if(user_Bet > user_Money)
+	{
+		printf("You don't have enough money!!\n\n");
+		printCoin(user_Money, com_Money);
+		return 1;
+	}
+	
+	return 0;
+}
+
+
+
+int randdice()
+{
+	srand(time(NULL));
+	rand(); rand(); rand();
+	srand(rand());
+	return rand() % 6 + 1;
+}
+
+int r6(int a)
+{
+	return a % 6 + 1;
+}
+
+
+
+void bet_Money(int* user_Bet)
+{
+	int bet;
+	printf("Bet your money!! : ");
+	scanf("%d", &bet);
+	*user_Bet = bet;
+	printf("You Bet %d!!\n",bet);
+}
+
+void throw_Dice(int* user_Sum, int* com_Sum)
+{
+
+	int user_Dice1, user_Dice2, user_Dice3; 
+	int com_Dice1, com_Dice2, com_Dice3;
+
+	printf("\nThrow Dice!!\n\n");
+	
+	user_Dice1 = randdice();
+	user_Dice2 = r6(rand());
+	user_Dice3 = r6(rand());
+	*user_Sum = user_Dice1 + user_Dice2 + user_Dice3;
+
+	printf("Your Dice1 : %d\n", user_Dice1);
+	printf("Your Dice2 : %d\n", user_Dice2);
+	printf("Your Dice3 : %d\n", user_Dice3);
+	printf("Your Dice Sum : %d\n", *user_Sum);
+	printf("\n");
+
+	com_Dice1 = r6(rand());
+	com_Dice2 = r6(rand());
+	com_Dice3 = r6(rand());
+	*com_Sum = com_Dice1 + com_Dice2 + com_Dice3;
+
+	printf("Com Dice1 : %d\n", com_Dice1);
+	printf("Com Dice2 : %d\n", com_Dice2);
+	printf("Com Dice3 : %d\n", com_Dice3);
+	printf("Com Dice Sum : %d\n", *com_Sum);
+	printf("\n");
+
+}
+
+
+int DiceGame(int* user_Money, int* com_Money, int* win, int* lose, int* draw)
+{	
+	int user_Bet=0;
+	int user_Sum=0;
+	int com_Sum=0;
+	char again;
+
+	while(1)
+	{
+	bet_Money(&user_Bet);
+	if(warning(*user_Money,*com_Money,user_Bet) == 1) break;
+	throw_Dice(&user_Sum, &com_Sum);
+		
+	if(com_Sum == user_Sum)
+	{
+		printf("<< Draw!! >>\n");
+		(*draw)++;
+		printCoin(*user_Money, *com_Money);
+	}else if(com_Sum < user_Sum)
+	{
+		printf("<< You Win!! >>\n");
+		*com_Money -= user_Bet;
+		*user_Money += user_Bet;
+		(*win)++;
+		printCoin(*user_Money, *com_Money);
+	}else
+	{
+		printf("<< You Lose!! >>\n");
+		*com_Money += user_Bet;
+		*user_Money -= user_Bet;
+		(*lose)++;
+		printCoin(*user_Money, *com_Money);
+	}
+	
+	if(*user_Money < 0)
+	{
+		printf("You don't have any money\n\n");
+		return 0;
+	}else if(*com_Money <0)
+	{
+		printf("Computer don't have any money, you absolutely win\n\n");
+		return 0;
+	}
+
+	while(1)
+	{
+	while(getchar()!='\n');
+	printf("Do you want to play again?(Y/N)");
+	scanf("%c",&again);
+	
+	if(again == 'Y') break;
+	else if(again == 'N') return 100;
+	else printf("You input wrong type data!!\npress any keys"); continue;
+	}
+
+	}
+}
+
+void print_Menu()
+{
+	printf("== Dice Game ==\n");
+	printf("1, Insert Coin\n");
+	printf("2, Game Start\n");
+	printf("3, Game Score\n");
+	printf("4, End Game\n\n");
+	printf(">");
+}
+
+void print_score(int win, int lose, int draw)
+{
+	printf("Your Win Score : %d\n", win);
+	printf("Your Lose Score : %d\n", lose);
+	printf("Your Draw Score : %d\n", draw);
+	printf("\n");
+}
+
+int main()
+{
+	int com_Money=0, user_Money=0;
+	int selectMenu;
+	int win=0, lose=0, draw=0;
+
+	while (1)
+	{
+		print_Menu();
+		scanf("%d", &selectMenu);
+
+		switch (selectMenu)
+		{
+		case 1: insertCoin(&com_Money, &user_Money); break;
+		case 2: DiceGame(&com_Money, &user_Money, &win, &lose, &draw); break;
+		case 3: print_score(win, lose, draw); break;
+		case 4: return 1;
+		default: printf("메뉴에 있는 값을 입력해주세요\n");
+		}
+	}
+	return 0;
+}

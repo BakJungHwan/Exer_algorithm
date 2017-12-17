@@ -1,0 +1,145 @@
+// exercise08.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.
+//
+
+#include "stdafx.h"
+
+int recurring1(int, int);
+int recurring2(int, int, int);
+int power(int, int);
+int compare(const int *a, const int *b)
+{
+	return *a - *b;
+}
+
+int main(int argc, char* argv[]) {
+	/* 아래 freopen 함수는 input.txt를 read only 형식으로 열고, 표준입력(키보드) 대신 input.txt 로 부터 읽어오겠다는 의미의 코드입니다.
+	만약 본인 PC 에서 테스트 할 때는, 입력값을 input.txt에 저장한 후 freopen 함수를 사용하면
+	그 아래에서 scanf 함수를 사용하여 표준입력 대신 input.txt 파일로 부터 입력값을 읽어 올 수 있습니다.
+	또한, 본인 PC에서 freopen 함수를 사용하지 않고 표준입력을 사용하여 테스트하셔도 무방합니다.
+	단, Codeground 시스템에서 "제출하기" 할 때에는 반드시 freopen 함수를 지우거나 주석(//) 처리 하셔야만 합니다. */
+
+	/* setbuf 함수를 사용하지 않으면, 본인의 프로그램이 제한 '시간 초과'로 강제 종료 되었을 때,
+	printf로 출력한 내용이 채점되지 않고 '0점'이 될 수도 있습니다.
+	시간 초과 전까지 실행된 결과 점수를 받고자 하신다면 "setbuf(stdout, NULL);" 를 사용하시기 바랍니다. */
+
+
+	setbuf(stdout, NULL);
+
+	int T;
+	int test_case;
+
+	scanf("%d", &T);
+	for (test_case = 1; test_case <= T; test_case++) {
+		// 이 부분에서 알고리즘 프로그램을 작성하십시오. 기본 제공된 코드를 수정 또는 삭제하고 본인이 코드를 사용하셔도 됩니다.
+		int k;
+		int a = 0;
+		int *temp;
+		int s_res = 0;
+		int l_res = 1;
+
+		scanf("%d", &k);
+		if (k & 1 == 1) a = 1;
+
+		temp = (int*)malloc(sizeof(int)*((k - 3) / 2));
+		if (k <= 4)
+		{
+			switch (k) {
+			case 0: s_res = 1; break;
+
+			case 1: s_res = 2; break;
+
+			case 2: s_res = 4; break;
+				
+			case 3: s_res = 8; break;
+
+			case 4: s_res = 16; break;
+			}
+		}
+		else
+		{
+
+			for (int i = 1; k - 2 * i + a >= 4; i++)
+			{
+				temp[i - 1] = recurring1((2 * i), power(2, (k - 2 * i + a)));
+			}
+
+			qsort(temp, (k - 3) / 2, sizeof(int), compare);
+
+			s_res = temp[0];
+		}
+
+		l_res = power(2, k);
+
+		// 이 부분에서 정답을 출력하십시오.
+		printf("Case #%d\n", test_case);
+		printf("%d %d\n", s_res, l_res);
+
+	}
+
+	return 0;	// 정상종료 시 반드시 0을 리턴해야 합니다.
+}
+
+int recurring1(int i, int t)
+{
+	int temp_t = 0;
+	int k = i;
+	if (k == 0) return t;
+	if ((t - 1) % 3 == 0)
+	{
+		temp_t = t * 2;
+		t = (t - 1) / 3;
+		return recurring2(k--, temp_t, t);
+	}
+	else
+	{
+		t = 2 * t;
+		return recurring1(k--, t);
+	}
+		
+}
+
+int recurring2(int k, int temp_t, int t)
+{
+	int tt = 0;
+	int temp_tt=0;
+	int p = k;
+	if (p == 0)
+	{
+		if (t < temp_t) return t;
+		else return temp_t;
+	}
+	if ((temp_t - 1) % 3 == 0)
+	{
+		temp_t = (temp_t - 1) / 3;
+		temp_tt = 2 * temp_tt;
+		return recurring2(p--, temp_t, temp_tt);
+	}
+	else
+	{
+		temp_t = 2 * temp_t;
+		return recurring1(p--, temp_t);
+	}
+
+	if ((t - 1) % 3 == 0)
+	{
+		t = (t - 1) / 3;
+		tt = 2 * t;
+		return recurring2(p--, t, tt);
+	}
+	else
+	{
+		t = 2 * t;
+		return recurring1(p--, t);
+	}
+
+}
+
+int power(int n, int k)
+{
+	int t=1;
+	for (int i = 0; i < k; i++)
+	{
+		t = t*n;
+	}
+	return t;
+}

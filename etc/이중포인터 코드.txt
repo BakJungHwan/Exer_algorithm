@@ -1,0 +1,26 @@
+#include "stdafx.h"
+#include "stdio.h"
+
+void exchange_ptr(char **, char **);
+
+int main(int argc, char* argv[])
+{
+	char *ap = "success";
+	char *bp = "failure";
+	
+	printf("ap -> %s, bp -> %s \n\n", ap, bp);
+	exchange_ptr(&ap, &bp);
+
+	printf("ap -> %s, bp -> %s \n", ap, bp);
+	
+	return 0;
+}
+
+void exchange_ptr(char **app, char **bpp)
+{
+	char *tp;
+	
+	tp = *app;
+	*app = *bpp;
+	*bpp = tp;
+}

@@ -1,0 +1,38 @@
+// StilmulatingBrainC.C.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.
+//
+
+#include "stdafx.h"
+
+void line_up(double *, double *, double *);
+void exchange(double *, double *);
+
+int main(int argc, char* argv[])
+{
+	double max, mid, min;
+
+	printf("숫자 세 개를 입력하세요 : ");
+	scanf("%lf%lf%lf", &max, &mid, &min);
+
+	line_up(&max, &min, &min);
+	printf("큰 수부터 차례로 출력하면 : %lf, %lf, %lf\n", max, mid, min);
+
+
+	return 0;
+}
+
+void line_up(double *m_1, double *m_2, double *m_3)
+{
+	if (*m_1 < *m_2) exchange(m_1, m_2);
+	if (*m_1 < *m_3) exchange(m_1, m_3);
+	if (*m_2 < *m_3) exchange(m_2, m_3);
+
+}
+
+void exchange(double *xp, double *yp)
+{
+	double temp;
+
+	temp = *xp;
+	*xp = *yp;
+	*yp = temp;
+}

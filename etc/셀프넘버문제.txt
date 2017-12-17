@@ -1,0 +1,69 @@
+1101 0010
+
+0010 1101 //
+
+0010 1110 = 32 + 8 + 4 + 2 = 46
+
+만약에 t가 두자리 수라면
+n > t + t/10 + t%10
+
+
+#include <stdio.h>
+
+int main()
+{
+	int sNum;
+	int eNum;
+	int temp, temp2;
+	int i, j;
+	int sum = 0;
+	int flag;
+
+
+	scanf("%d", &sNum);
+	scanf("%d", &eNum);
+
+	for (i = sNum; i <= eNum; i++)
+	{
+		flag = 1;
+		for (j = i; j > 0; j--)
+		{
+			temp = 0;
+			temp2 = j;
+			if (j >= 1000)
+			{
+				temp += temp2 + (temp2 / 1000);
+				temp2 = temp2 - (temp2 / 1000) * 1000;
+				temp += temp2 / 100;
+				temp2 = temp2 - (temp2 / 100) * 100;
+				temp += temp2 / 10;
+				temp2 = temp2 - (temp2 / 10) * 10;
+				temp += temp2;
+			}
+			else if (j >= 100) {
+				temp += temp2 + temp2 / 100;
+				temp2 = temp2 - (temp2 / 100) * 100;
+				temp += temp2 / 10;
+				temp2 = temp2 - (temp2 / 10) * 10;
+				temp += temp2;
+			}
+			else if (j >= 10) {
+				temp += temp2 + temp2 / 10;
+				temp2 = temp2 - (temp2 / 10) * 10;
+				temp += temp2;
+			}
+			else { temp = temp2 + temp2; }
+
+			if (i == temp)
+			{
+				flag = 0;
+				break;
+			}
+		}
+		if (flag) sum += i;
+	}
+
+	printf("%d\n", sum);
+
+	return 0;
+}

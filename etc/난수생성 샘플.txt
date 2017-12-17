@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main()
+{
+	int n;
+
+	srand(time(NULL)); 
+	rand();rand();rand();
+	srand(rand())
+	n = rand();
+
+	printf("n = %d\n", n);
+
+	return 0;
+
+}

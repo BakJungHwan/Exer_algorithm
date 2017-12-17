@@ -1,0 +1,150 @@
+#include "stdafx.h"
+#define pi 3.14
+
+int power(int *a)
+{
+	return (*a)*(*a);
+}
+
+int lovalue(int* a, int* b)
+{
+	return power(a) + power(b);
+}
+
+int point(int *x, int *y)
+{
+	double angle = atan2((*y),(*x))*180/pi;
+	if (angle < 0) angle = angle + 360;
+	printf("angle : %lf\n", angle);
+	if (0 <= angle && angle <= 99)
+	{
+		if (0 <= angle && angle <= 9) return 6;
+		else if (angle <= 27) return 13;
+		else if (angle <= 45) return 4;
+		else if (angle <= 63) return 18;
+		else if (angle <= 81) return 1;
+		else return 20;
+	}
+	else if (angle <= 189)
+	{
+		if (angle <= 117) return 5;
+		else if (angle <= 135) return 12;
+		else if (angle <= 153) return 9;
+		else if (angle <= 171) return 14;
+		else return 11;
+	}
+	else if (angle <= 279)
+	{
+		if (angle <= 207) return 8;
+		else if (angle <= 225) return 16;
+		else if (angle <= 243) return 7;
+		else if (angle <= 261) return 19;
+		else return 3;
+	}
+	else
+	{
+		if (angle <= 297) return 17;
+		else if (angle <= 315) return 2;
+		else if (angle <= 333) return 15;
+		else if (angle <= 351) return 10;
+		else return 6;
+	}
+}
+
+
+int bonus(int* bull, int *s_triple, int *e_triple, int *s_double, int *e_double, int *x, int *y, int point)
+{
+	int lo = lovalue(x, y);
+	if ( lo <= power(bull))
+	{
+		return 50;
+	}
+	else if (power(e_double) <= lo)
+	{
+		return 0;
+	}
+	else if (power(s_triple) <= lo && lo <= power(e_triple))
+	{
+		return point*3;
+	}
+	else if (power(s_double) <= lo && lo <= power(e_double))
+	{
+		return point * 2;
+	}
+	else
+	{
+		return point;
+	}
+}
+
+
+
+int main(int argc, char* argv[])
+{
+	/* 아래 freopen 함수는 input.txt를 read only 형식으로 열고, 표준입력(키보드) 대신 input.txt 로 부터 읽어오겠다는 의미의 코드입니다.
+	만약 본인 PC 에서 테스트 할 때는, 입력값을 input.txt에 저장한 후 freopen 함수를 사용하면
+	그 아래에서 scanf 함수를 사용하여 표준입력 대신 input.txt 파일로 부터 입력값을 읽어 올 수 있습니다.
+	또한, 본인 PC에서 freopen 함수를 사용하지 않고 표준입력을 사용하여 테스트하셔도 무방합니다.
+	단, Codeground 시스템에서 "제출하기" 할 때에는 반드시 freopen 함수를 지우거나 주석(//) 처리 하셔야만 합니다. */
+	freopen("sample_input.txt", "r", stdin);
+
+	setbuf(stdout, NULL);
+
+	int TC;
+	int test_case;
+	int radius[5] = { 0 };
+	int n;
+	int **location_arr;
+	int *location;
+	int result;
+	
+
+	scanf("%d", &TC);
+	for (test_case = 1; test_case <= TC; test_case++) {
+		// 이 부분에서 알고리즘 프로그램을 작성하십시오. 기본 제공된 코드를 수정 또는 삭제하고 본인이 코드를 사용하셔도 됩니다.
+		result = 0;
+		for (int i = 0; i < 5; i++)
+		{
+			scanf(" %d", radius + i);
+		}
+
+		scanf(" %d", &n);
+		
+		
+
+		location_arr = (int **)malloc(sizeof(int)*n);
+		if (location_arr == NULL)
+		{
+			printf("Dynamic memory allocation is denied");
+			return 1;
+		}
+		else {
+			for (int i = 0; i < n; i++)
+			{
+				*(location_arr + i) = (int *)malloc(sizeof(int) * 2);
+				if (*(location_arr + i) == NULL)
+				{
+					printf("Dynamic memory allocation is denied");
+					return 2;
+				}
+				scanf(" %d%d", *(location_arr + i), (*(location_arr+i)+1));
+				printf("point : %d\n", point(*(location_arr + i), (*(location_arr + i) + 1)));
+				result += bonus(radius, radius+1, radius+2, radius+3, radius+4, *(location_arr+i), (*(location_arr+i)+1), point(*(location_arr + i), (*(location_arr + i) + 1)));
+				printf("result processing : %d\n", result);
+			}
+			
+
+		}
+		
+
+
+
+		// 이 부분에서 정답을 출력하십시오.
+		printf("Case #%d\n", test_case);
+		printf("%d\n", result);
+
+	}
+
+	return 0;	// 정상종료 시 반드시 0을 리턴해야 합니다.
+}
+

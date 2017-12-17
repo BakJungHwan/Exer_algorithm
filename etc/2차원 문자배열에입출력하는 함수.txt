@@ -1,0 +1,60 @@
+#include "stdafx.h"
+#include "stdio.h"
+
+
+void user_input(char(*)[80], char **, int);
+void user_output(char(*)[80], char **, int);
+
+int main(int argc, char* argv[])
+{
+	char *title[5] = { "이름 : ", "성별 : ", "주소 : ", "직업 : ", "연봉 : " };
+	char ary[5][80] = {0};
+	char(*ap)[80];
+	int count;
+
+	count = sizeof(ary) / sizeof(ary[0]);
+
+	ap = ary;
+
+	user_input(ap, title, count);
+	user_output(ap, title, count);
+
+	return 0;
+}
+
+void user_input(char(*ap)[80], char **title, int count)
+{
+	printf("다섯 개의 문장을 입력하세요.\n");
+	for (int i = 0; i < count; i++)
+	{
+		printf("%s", title[i]);
+		int j = 0;
+		
+		while (1)
+		{
+			ap[i][j] = getchar();
+			j++;
+
+			if (ap[i][j-1] == '\n')
+				break;
+		} 
+		ap[i][j-1] = '\0';
+	}
+}
+
+void user_output(char(*ap)[80], char **title, int count)
+{
+	printf("\n입력된 문장은...\n");
+	for (int i = 0; i < count; i++)
+	{
+		printf("%s", title[i]);
+		int j = 0;
+		
+		while (ap[i][j] != '\0')
+		{
+			putchar(ap[i][j]);
+			j++;
+		}
+		printf("\n");
+	}
+}
