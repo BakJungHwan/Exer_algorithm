@@ -1,0 +1,37 @@
+Question. 최대공약수와 최소공배수 -> https://programmers.co.kr/learn/challenge_codes/149
+두 수를 입력받아 두 수의 최대공약수와 최소공배수를 반환해주는 gcdlcm 함수를 완성해 보세요. 배열의 맨 앞에 최대공약수, 그 다음 최소공배수를 넣어 반환하면 됩니다. 예를 들어 gcdlcm(3,12) 가 입력되면, [3, 12]를 반환해주면 됩니다.
+
+
+Python
+1.
+def gcdlcm(a, b):
+    c, d = max(a, b), min(a, b)
+    t = 1
+    while t > 0:
+        t = c % d
+        c, d = d, t
+    answer = [c, int(a*b/c)]
+
+    return answer
+
+임시 변수를 사용하는 방식. 역시 반복문으로는 임시변수를 사용할 수 밖에 없는 듯 하다.
+
+
+2.
+def gcdlcm(a, b):
+    for i in range(a):
+        if a%(a-i)+b%(a-i) == 0:
+            return [a-i, a*b/(a-i)]
+
+차례로 때려 넣는 방식, 심플하다. 그러나 서로소인 경우 필요없는 계산이 많아진다.
+
+
+3.
+def gcdlcm(a, b):
+    def _gcd(x,y):
+        if y==0: return x
+        return _gcd(y,x%y)
+    g = _gcd(a,b)
+    return [ g, a*b//g ]
+
+헬퍼함수를 사용하는 경우, 이 경우가 좀 더 파이썬스러운 느낌이다.

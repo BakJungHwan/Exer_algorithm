@@ -1,0 +1,58 @@
+Question. 하샤드수 -> https://programmers.co.kr/learn/challenge_codes/130
+양의 정수 x가 하샤드 수이려면 x의 자릿수의 합으로 x가 나누어져야 합니다. 예를들어 18의 자릿수 합은 1+8=9이고, 18은 9로 나누어 떨어지므로 18은 하샤드 수입니다.
+Harshad함수는 양의 정수 n을 매개변수로 입력받습니다. 이 n이 하샤드수인지 아닌지 판단하는 함수를 완성하세요.
+예를들어 n이 10, 12, 18이면 True를 리턴 11, 13이면 False를 리턴하면 됩니다.
+
+
+Python
+1.
+def Harshad(n):
+    return n % sum(int(x) for x in str(n)) == 0
+
+정말 파이썬 다운 코드. string을 다시 int로 변환하여 문제를 해결!!
+
+map도 있고 list도 있는데 쓸 생각을 더 해보자.
+
+
+
+Java
+1.
+public class HarshadNumber{
+    private int sum = 0;
+    public boolean isHarshad(int num){
+        sum = 0;
+        Integer.toString(num).chars().forEach(c -> sum += c - '0');
+        return num % sum == 0;
+    }
+
+역시 이것저것 많이 들어가긴 했는데, 공부하기 좋은 느낌이라 뽑아왔다.
+chars()와 forEach()메서드가 궁금하다.
+
+chars()는 CharSequence Interface에 포함되어 있고,
+forEach()는 IntStream Interface에 포함되어 있다.
+이런 모듈간의 관계도 역시 매우 중요해 보인다.
+
+
+
+2.
+public class HarshadNumber{
+    public boolean isHarshad(int num){
+
+        String[] temp = String.valueOf(num).split("");
+
+        int sum = 0;
+        for (String s : temp) {
+            sum += Integer.parseInt(s);
+        }
+
+        if (num % sum == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+솔직히, 좋은 코드란 느낌은 안들지만 궁금한 점이 많아서 갖고 왔다.
+String의 valueOf(), split() 메서드를 찾아보려고 한다.
+Integer.parseInt()도 참고해볼만 하다.

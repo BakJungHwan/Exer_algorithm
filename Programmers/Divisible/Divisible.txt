@@ -1,0 +1,33 @@
+Question. 나누어 떨어지는 숫자 배열 -> https://programmers.co.kr/learn/challenge_codes/89
+divisible 메소드는 int형 배열 array와 int divisor를 매개변수로 받습니다.
+array의 각 element 중 divisor로 나누어 떨어지는 값만 포함하는 새로운 배열을 만들어서 반환하도록 divisible에 코드를 작성해 보세요.
+
+예를들어 array가 {5, 9, 7, 10}이고 divisor가 5이면 {5, 10}을 리턴해야 합니다.
+
+
+Java
+1.
+class Divisible {
+    public int[] divisible(int[] array, int divisor) {
+        return Arrays.stream(array).filter(factor -> factor % divisor == 0).toArray();
+    }
+
+또다시 등장한 람다. 이번에는 Arrays.steam()와 filter()를 사용한 형태이다.
+
+
+2.
+public class Divisible {
+    public int[] divisible(int[] array, int divisor) {
+        ArrayList<Integer> ret = new ArrayList<>();
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] % divisor == 0) {
+                ret.add(array[i]);
+            }
+        }
+
+        return ret.stream().mapToInt(i -> i).toArray();
+    }
+
+
+ArrayList를 활용한 방식. add() 메서드가 int자료형을 읽어서 Integer 객체로 만들어주는 모양이다.
+stream()에서 mapToInt가 포함되지 않았나 싶다.
