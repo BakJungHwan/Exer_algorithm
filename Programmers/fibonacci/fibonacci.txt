@@ -1,0 +1,15 @@
+Question. 피보나치 수 -> 
+
+Python
+1.
+def fibonacci(num):
+    a, b = 0, 1
+    for i in range(num):
+        a, b = b, a+b
+    return a
+
+훨씬 얘쁜 듯 하다. 따로 캐쉬를 쓴 것도 아니고. 깔끔하다.
+특히, a,b = b, a+b 이 부분이 마음에 든다.
+
+
+

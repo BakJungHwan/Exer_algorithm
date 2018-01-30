@@ -1,0 +1,17 @@
+Question. 자릿수더하기 --> https://programmers.co.kr/learn/challenge_codes/116
+
+
+Python
+1. 재귀함수 형태
+def sum_digit(number):
+    if number < 10:
+        return number;
+    return (number % 10) + sum_digit(number // 10) 
+
+요즘 계속 List Comprehension에 집중하고 있어서 이런 녀석이 오히려 새롭다.
+
+2. map을 활용한 str순회
+def sum_digit(number):
+    return sum(map(int,str(number)))
+
+str도 iterable한 객체이다. 굳이 List를 고집할 필요가 없다.

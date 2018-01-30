@@ -1,0 +1,45 @@
+Question. 제일 작은 수 제거하기 --> https://programmers.co.kr/learn/challenge_codes/121
+
+Python
+
+1.
+def rm_small(mylist):
+    return [i for i in mylist if i > min(mylist)]
+
+# 아래는 테스트로 출력해 보기 위한 코드입니다.
+my_list = [4,3,2,1]
+print("결과 {} ".format(rm_small(my_list)))
+
+
+min, max라는 함수를 잠시 잊고 있었다는 점...
+list의 remove는 inplace에서 작동한다는 점..
+pop는 index에 따라 값을 뽕뽕 빼먹는다는 점 등을 적용하지 못했다..
+
+
+
+
+Java
+
+Scanner sc = new Scanner(System.in);
+
+ArrayList<Integer> mylist = new ArrayList<Integer>();
+while(sc.hasNextInt())
+{
+	Integer input = new Integer(sc.nextInt());
+	System.out.println(input);
+}
+
+ArrayList랑 너무 친하지 않은 것 같아서 도전해 보았다.
+그런데, 문제를 풀면서 오히려 Scanner에 대한 이해가 필요했다.
+위 예제를 이용하면 System.in으로 들어오는 값이 어떤 데이터형인지 확인하고 다음 시퀀스를 진행해 준다.
+
+
+Scanner sc = new Scanner(Rm_small.class.getResourceAsStream("input.txt"));
+
+이 방법을 사용하면 Scanner에서 파일을 읽어올 수 있었다.
+
+그러나, File객체를 Scanner의 생성자에 매개변수로 전달하는 경우, FileInputStream을 전달하는 경우 모두 작동하지 않았다.
+FileInputStream에서 File객체를 받을 때에도 제대로 작동하지 않았다.
+하지만, File객체의 경로나 읽기여부는 제대로임을 확인할 수 있었다. (File객체 자체의 getPath()와 canRead()메서드를 활용하였다.)
+
+궁금하다!!!!

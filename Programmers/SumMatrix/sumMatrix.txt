@@ -1,0 +1,78 @@
+Question. 행렬의 덧셈 -> 행렬의 덧셈은 행과 열의 크기가 같은 두 행렬의 같은 행, 같은 열의 값을 서로 더한 결과가 됩니다. 2개의 행렬을 입력받는 sumMatrix 함수를 완성하여 행렬 덧셈의 결과를 반환해 주세요.
+
+예를 들어 2x2 행렬인 A = ((1, 2), (2, 3)), B = ((3, 4), (5, 6)) 가 주어지면, 같은 2x2 행렬인 ((4, 6), (7, 9))를 반환하면 됩니다.(어떠한 행렬에도 대응하는 함수를 완성해주세요.)
+
+Python
+1.
+def sumMatrix(A,B):
+    answer = [[c + d for c, d in zip(a, b)] for a, b in zip(A,B)]
+    return answer
+
+깔끔하다
+
+zip의 이해!!
+zip을 활용하면 각 요소의 순서대로 모아서 튜플을 만들어 준다. 전달인자의 개수에 따라 튜플의 원소 갯수가 달라진다.
+다만, zip을 하는 list의 원소의 갯수가 서로 다르면 짝이 맞지 않는 녀석이 잘리니 주의하도록 하자.
+ex1> 2 X 2 list를 활용
+A = [[1,2],[3,4]]
+B = [[5,6],[7,8]]
+C = zip(A,B)
+for i,j in C:
+    print("i = " + str(i) + "   j = " + str(j))
+    for k in i:
+        print("in i : " + str(k))
+    for k in j:
+        print("in j : " + str(k))
+
+>>>
+i = [1, 2]   j = [5, 6]
+in i : 1
+in i : 2
+in j : 5
+in j : 6
+i = [3, 4]   j = [7, 8]
+in i : 3
+in i : 4
+in j : 7
+in j : 8
+
+ex2>
+A = [1,2]
+B = [3,4,5]
+C = zip(A,B)
+for i in C:
+    print(i)
+
+>>>
+(1,3)
+(3,4)
+
+
+2. 원래행렬에 더해서 리턴
+def sumMatrix(A,B):
+    for i in range(len(A)):
+        for j in range(len(A[0])):
+            A[i][j] += B[i][j]
+    return A
+
+
+
+3. np를 사용해서 계산
+import numpy as np
+def sumMatrix(A,B):
+    A=np.array(A)
+    B=np.array(B)
+    answer=A+B
+    return answer.tolist()
+
+np가 행렬연산에 특화된 점을 사용. 행렬이 나오면 np를 사용하는 것을 염두에 둬야 할 듯 하다.
+np.tolist() 메서드를 활용한다.
+
+
+4.
+def sumMatrix(A,B):
+    answer = [[A[i][j] + B[i][j] for j in range(len(A[0]))] for i in range(len(A))]
+
+    return answer
+
+한줄로 만들기. 이게 가장 맘에 든다.

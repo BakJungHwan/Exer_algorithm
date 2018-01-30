@@ -1,0 +1,69 @@
+Question. JadenCase문자열 만들기 -> https://programmers.co.kr/learn/challenge_codes/134
+
+Python
+1.
+str.split() 메서드에서 인수를 넣지 않으면, 화이트스페이스를 기준으로 split한다.
+
+
+정규표현식을 사용한 split()
+import re
+s = "HELLO there HOW are YOU"
+l = re.compile("(?<!^)\s+(?=[A-Z])(?!.\s)").split(s)
+print(l)
+
+저 정규표현식을 이해하기는 좀 어렵지만 저런 방법이 있다.
+regexper.com에서도 모른단다. 파이썬 정규표현식이라 그런가..
+
+
+1.
+return s.title()
+
+이런 무시무시한 내장함수가 있었다.. 모든 단어의 첫 글자를 대문자로, 나머지는 소문자로 표현해준다.
+
+
+2.
+return ' '.join([x[0].upper()+x[1:].lower() for x in s.split()])
+
+훨씬 깔끔하다. 문자열이나 배열을 '무조건'순회한다고 생각하다보니 이런 코드가 잘 안나온다.
+이렇게 예쁘게 하는게 좋잖아!!
+
+3.
+import string
+return string.capwords(s)
+
+이런 무시무시한 함수도 있다..
+
+4.
+for x in s.split() :
+    result+=x.lower().capitalize()+" "
+str.capitalize()는 str의 첫문자를 대문자로 바꿔주는 메서드다.
+
+
+
+최종 제출
+def Jaden_Case(s):
+        return " ".join([word[0].upper() + word.lower()[1:] for word in s.split(" ")])
+
+
+
+
+Java
+1.
+Character.isLetter()
+String.split()
+이 split은 regex를 매개변수로 받는다.
+
+String.substring(1) == String.substring(1,String.length())
+
+
+
+String보다 StringBuilder를 써야하는 이유
+1.  + 연산을 할 때마다 새로운 객체를 만든다.
+2. 불변클래스이기 때문에
+
+StringBuilder는 불변 클래스가 아니다.
+1. sb.append()를 사용하면 속도와 메모리면에서 
+
+
+String.toUpperCase()
+-> 문자가 아닌 값이 입력되면, '무시한다'

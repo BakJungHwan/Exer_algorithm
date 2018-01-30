@@ -1,0 +1,14 @@
+Question. x만큼 간격이 있는 n개의 숫자 --> https://programmers.co.kr/learn/challenge_codes/135/solutions
+
+
+Python
+1.
+def number_generator(x, n):
+    # 함수를 완성하세요
+    return [i for i in range(x, x*n+1, x)]
+
+# 아래는 테스트로 출력해 보기 위한 코드입니다.
+print(number_generator(2,5))
+
+range함수로 간격을 둔 리스트를 만들 수 있다.
+slice와 비슷하게 사용하면 된다.

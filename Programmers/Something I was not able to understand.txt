@@ -1,0 +1,2 @@
+질문거리가 있는 문제들
+1. strange_sort : Comparble.compareTo() 구현에 있어서 재귀함수 형태의 오버라이드

@@ -1,0 +1,76 @@
+
+
+
+
+Python
+ret = [int(c) for c in str(n)].reverse()
+
+ret = [int(c) for c in str(n)]
+ret.reverse()
+
+이 두녀석의 차이는 정확히는 모르겠다. 하지만, comprehensive list형태가
+뭔가 제너레이터 형태라는 느낌은 든다.
+
+
+ret = [int(c) for c in reversed(str(n))]
+
+구글에서 이런 함수를 찾아냈다. 
+reversed(sq)는 sequence에 적용되는 함수이다. 뒤집는 경우에 아주 유용할 듯 하다.
+
+ret = [int(c) for c in str(n)[::-1]]
+
+이렇게 slicing notation을 사용하는 방법도 있다.
+
+!!!!!!
+import timeit
+Python에서 execution time을 Measure하는 모듈을 찾았다!!!
+min(timeit.repeat(lambda: [x for x in a[::-1]]))
+min(timeit.repeat(lambda: [x for x in reversed(a)]))
+
+보통 이렇게 찾는 것 같은데 유용할 듯 하다.
+repeat을 사용하면 몇 가지의 열과물을 던져준다.
+
+
+1.
+Java execution Time
+import java.util.concurrent.TimeUnit;
+System.nanoTime();
+System.currentTimeMillis();
+
+2.
+import java.time.Instant;
+long startTime Instant.now().toEpochMilli();
+
+2-1.
+import java.time.Duration;
+Instant start = Instant.now();
+Instant end = Instant.now();
+
+Duration interval = Duration.between(start, end);
+
+3.
+import com.google.common.base.Stopwatch;
+Stopwatch stopwatch = Stopwatch.createStarted();
+stopwatch.stop()
+long timeElapsed = stopwatch.elapsed(TimeUnit.MILLISECONDS);
+
+4.
+import org.apache.commons.lang.time.StopWatch;
+StopWatch stopwatch = new StopWatch();
+stopwatch.start();
+stopwatch.stop();
+long timeElapse = stopwatch.getTime();
+
+5.
+import java.util.Date;
+long startTime = new Date().getTime();
+long endTime = new Date().getTime();
+long timeElapsed = endTime - startTime;
+
+6.
+import java.util.Calendar;
+long startTime = Calendar.getInstance().getTime().getTime();
+long endTime = Calendar.getInstance().getTime().getTime();
+long timeElapsed = endTime - startTime;
+
+요녀석들을 사용할 수 있다.

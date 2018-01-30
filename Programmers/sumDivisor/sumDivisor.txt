@@ -1,0 +1,7 @@
+Question. 약수의 합 -->  https://programmers.co.kr/learn/challenge_codes/2
+
+약수의 합을 구할 때는 양수제곱근(포함)까지만 구하고, 그 전의 몫을 함께 더해주면 된다.
+
+
+Python
+1.
