@@ -1,0 +1,59 @@
+Question. 가장 긴 팰린드롬 → https://programmers.co.kr/learn/challenge_codes/85/solutions
+
+Python
+“is” 와 “==”의 차이
+“is”
+address값이 같아야 한다.
+데이터 내용 값은 관계없다.
+“==”
+데이터 내용이 같아야 한다.
+address값과 관계없다.
+// id() : 객체의 저장 주소값 알아내기
+
+def longest_palindrom(s):
+    return len(s) if s[::-1] == s else max(longest_palindrom(s[:-1]), longest_palindrom(s[1:]))
+눈물이 날정도로 멋진 코드!! 재귀가 아주 쩔어준다.
+‘회문’분석의 형식 중 하나
+뒤집은 문자열과 일치하는지 확인한다.
+
+from difflib import SequenceMatcher as SM
+def longest_palindrom(s):
+    return SM(None, s,s[::-1]).find_longest_match(0,len(s),0,len(s)).size
+이런 라이브러리가 있다. 가장 긴 매치를 찾아주는 형태인 것 같은데
+
+
+
+Java
+Java의 형변환 : (int)a;
+C/C++의 형변환 : (int)a;
+
+
+
+문자열의 비교
+equals()
+문자열의 원본 내용을 비교
+true또는 false를 반환
+==
+값이 아닌 참조를 비교
+true 또는 false를 반환
+Python과는 반대이다.
+compareTo()
+값을 비교하여
+같으면 0
+앞의 값 - 뒤의값을 반환
+
+
+이상한 예외 발견
+sb의 값은 “a”, str의 값도 “a”이라고 가정한다.
+StringBuilder sb = new StringBuilder(str);
+str.equals(sb.toString())
+false
+String temp = sb.toString();
+str.equals(temp)
+true
+
+
+자바 encoding방법
+String.getByte(encoding)과 String생성자의조합
+String utf8 = new String(eucStr.getBytes(“euc-kr”), “utf-8″);
+Compile시 -encoding [encoding방식] 옵션을 추가해준다.

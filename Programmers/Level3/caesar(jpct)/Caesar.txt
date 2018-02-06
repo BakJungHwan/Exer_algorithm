@@ -1,0 +1,34 @@
+Question 시저 암호 --> https://programmers.co.kr/learn/challenge_codes/144
+
+
+Python
+1.
+def convert(c, n):
+    converted = ord(c) + n%26
+    if (c.islower() and not chr(converted).islower()) or (c.isupper() and not chr(converted).isupper()):
+        converted -= 26
+    return chr(converted)
+
+def caesar(s, n):
+    return ''.join(convert(c, n) if c.isalpha() else c for c in s)
+
+
+깔끔한 시저암호 풀이법
+islower()의 역할
+소문자검사용
+변환 후 소문자범위에 있는지 확인
+
+
+
+
+
+
+Java
+1.
+      if (Character.isLowerCase(ch)) {
+        ch = (char) ((ch - 'a' + n) % 26 + 'a');
+      } else if (Character.isUpperCase(ch)) {
+        ch = (char) ((ch - 'A' + n) % 26 + 'A');
+      }
+
+-> 'a'와 'A'를 먼저 빼고 n을 더한 후 26의 나머지를 받아옴으로써 isLowerCase와 isUpperCase를 한번만 사용하였다.

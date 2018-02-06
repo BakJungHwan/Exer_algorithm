@@ -1,0 +1,25 @@
+Question. n개의 최소공배수 --> https://programmers.co.kr/learn/challenge_codes/152
+
+Python
+1.
+from functools import reduce
+from fractions import gcd
+
+def nlcm(num):
+    return reduce(lambda a, b : a * b // gcd(a, b), num)
+
+--> reduce가 효율적이지는 않지만 코드는 깔끔하다. fractions에 gcd가 있다는 점도 체크할 점.
+
+2.
+def nlcm(num):      
+    answer = num[0]
+    for n in num:
+        answer = n * answer / gcd(n, answer)
+
+    return answer
+
+--> reduce를 반복문으로 구현
+
+
+
+Java

@@ -1,0 +1,66 @@
+﻿Question. 야근 지수 --> https://programmers.co.kr/learn/challenge_codes/26
+
+Python
+1.
+def noOvertime(n, works):
+    if n >= sum(works):
+        return 0
+    while n > 0:
+        works[works.index(max(works))] -= 1
+        n -= 1
+    result = sum([w ** 2 for w in works])
+    # 야근 지수를 최소화 하였을 때의 야근 지수는 몇일까요?
+    return result
+
+--> index를 활용해서 가장 큰값을 산출한다.
+
+
+Java
+1.
+for(int work : works)
+        sum += work;
+    sum -= no;
+    rest = sum%length;
+    avg = sum/length;
+    result = (length-rest)*avg*avg + rest*(avg+1)*(avg+1);
+        return result;
+    }
+
+--> 모두 같은 값을 가진다는 점을 평균을 활용했다. 버려지는 부분은 평균에 1을 더해서 해결했다.
+--> 근데 이거 모순이 있다. 값을 다른 수로 옮겨줄 수가 없으므로 해결할 수가 없다.
+
+
+
+C++
+1.
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+using namespace std;
+
+int noOvertime(int no,vector<int> works)
+{
+    int answer = 0;
+    int sum = std::accumulate(works.begin(), works.end(), 0);
+    if (no < sum)
+    {
+        for (int i = 0; i < no; i++)
+        {
+            int maxIndex = find(works.begin(), works.end(), *max_element(works.begin(), works.end())) - works.begin();
+            works[maxIndex] -= 1;
+        }
+
+        int worksSize = works.size();
+        for (int j = 0; j < worksSize; j++)
+        {
+            answer += pow(works[j], 2);
+        }
+    }
+    return answer;
+}
+
+
+--> find 함수 : <algorithm> 구간내에서 해당하는 값의 인덱스를 찾아주는 함수인듯 하다.
+--> max_element함수 : <algorithm> 해당구간에서 가장 큰 값의 주소값을 리턴하는 듯 하다.
+--> accumulate : <numeric> 합을 구하는 함수인듯. numeric에 있다.

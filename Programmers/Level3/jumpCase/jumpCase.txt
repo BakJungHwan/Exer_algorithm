@@ -1,0 +1,18 @@
+Question. 멀리뛰기 --> https://programmers.co.kr/learn/challenge_codes/32
+
+Python
+def jumpCase(num):
+    a, b = 1, 2
+    for i in range(2,num):
+        a, b = b, a+b
+    return b
+
+--> 이런 스왑이 아주 보기가 좋다. 활용하고 싶다아.
+
+
+Java
+
+
+
+C++
+
