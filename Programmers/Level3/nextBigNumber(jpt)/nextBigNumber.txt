@@ -1,0 +1,88 @@
+question. ´ÙÀ½ Å« ¼ýÀÚ --> https://programmers.co.kr/learn/challenge_codes/170
+
+Python
+1.
+
+def nextBigNumber(n):
+    num1 = bin(n).count('1')
+    while True:
+        n = n + 1
+        if num1 == bin(n).count('1'):
+            break
+    return n
+
+-> 이렇게 간단하게 해결할 수 있다.
+
+
+
+Java
+Integer.toBinaryString()
+
+1.
+class TryHelloWorld {
+    public int nextBigNumber(int n) {
+        int postPattern = n & -n, smallPattern = ((n ^ (n + postPattern)) / postPattern) >> 2;
+        return n + postPattern | smallPattern;
+    }
+    public static void main(String[] args) {
+        int n = 78;
+        System.out.println(new TryHelloWorld().nextBigNumber(n));
+    }
+}
+
+--> 직접 숫자를 대입해보면 맞는 답이 나오는 것 같다.
+--> 어떻게 설계했는지는 생각해볼 여지가 있다.
+--> 내가 했던 생각을 다른 형태로 구현한 듯.
+
+
+2.
+import java.lang.Integer;
+
+class TryHelloWorld
+{
+    public int nextBigNumber(int n)
+    {
+      int a = Integer.bitCount(n);
+      int compare = n+1;
+
+      while(true) {
+        if(Integer.bitCount(compare)==a)
+          break;
+        compare++;
+      }
+
+      return compare;
+    }
+
+    public static void main(String[] args)
+    {
+        TryHelloWorld test = new TryHelloWorld();
+        int n = 78;
+        System.out.println(test.nextBigNumber(n));
+    }
+}
+--> Integer의 첫번째 메서드가 bitCount이다.
+
+
+
+C++
+<bitset>
+ex>
+    bitset<8>(128)
+    --> 128을 8bit의 binary string으로 만들어 준다.
+
+    std::string binary = std::bitset<8>(128).to_string(); //to binary
+    std::cout<<binary<<"\n";
+
+    unsigned long decimal = std::bitset<8>(binary).to_ulong();
+    std::cout<<decimal<<"\n";
+
+    이런 코드로 사용할 수 있다.
+
+
+
+ while (k != 0) {
+        ac += k % 2;
+        k /= 2;
+    }
+--> 그냥 이 방법으로 간단하고 쉽게 1의 개수를 구할 수 있다.

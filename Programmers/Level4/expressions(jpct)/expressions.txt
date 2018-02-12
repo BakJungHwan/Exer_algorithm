@@ -1,0 +1,11 @@
+Question. 숫자의 표현 --> https://programmers.co.kr/learn/challenge_codes/41
+
+Python
+1.
+def expressions(num):
+    return len([i  for i in range(1,num+1,2) if num % i is 0])
+
+--> 굉장히 수학적인 코드이다. 정확한 원리를 이해하지는 못했다.
+--> 컴퓨터 알고리즘으로서는 바람직하지 않은 느낌이지만 매우 궁금하다.
+
+주어진 자연수를 연속된 자연수의 합으로 표현하는 방법의 수는 주어진 수의 홀수 약수의 개수와 같다라는 정수론 정리
