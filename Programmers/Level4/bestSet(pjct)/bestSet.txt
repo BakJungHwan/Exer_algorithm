@@ -1,0 +1,17 @@
+Question. 최고의 집합 --> https://programmers.co.kr/learn/challenge_codes/37
+
+Python
+
+
+Java
+1.
+ while(s>0) {
+            answer[(i%n)]++;
+          i++;
+          s--;
+         }
+
+2.
+Arrays.fill(answer,s/n);
+
+배열에 값을 채우는 메서드
