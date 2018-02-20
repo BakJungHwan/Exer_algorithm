@@ -1,0 +1,122 @@
+Question. 124나라의 숫자 --> https://programmers.co.kr/learn/challenge_codes/47
+
+Python
+1.
+def change124(n):
+    num = ['1','2','4']
+    answer = ""
+
+
+    while n > 0:
+        n -= 1
+        answer = num[n % 3] + answer
+        n //= 3
+
+    return answer
+
+내 코드가 너무 부끄럽다. 이렇게 간단하게 매칭이 된다.
+3진수는 0,1,2 니까 각각 1,2,4에 대응시키면 된다.
+자릿수 증가를 막기 위해서 나머지에 1을 빼주었는데, 왜 이런 방식을 활용하게 되었는지 알아내야 한다.
+    - 일단, 나머지에서 1을 빼는 경우와 1을 빼놓고 나눗셈을 하는 경우, 나머지가 0일 때 차이가 발생한다.
+    - 미리 1을 빼는 것은 자릿수를 정리해주는 기법이기도 하다. 3진수와 124수의 자릿수를 맞춰줄 수 있다.
+    - 내가 생각한 앞의 수에서 1을 빌려오는 개념으로 받아들이면 되겠다.
+
+
+
+
+1	0	1
+2	1	2
+3	2	4
+4	10	11
+5	11	12
+6	12	14
+7	20	21
+
+
+
+2.
+def change124(n):
+    return ['4', '1', '2'][n%3] if n < 4 else change124((n-1) // 3) + ['4', '1', '2'][n%3]
+
+위와 거의 비슷한 방식, 재귀적으로 해결을 했다.
+
+
+
+3.
+def change124(n):
+    answer = ""
+
+    # n을 계속 3으로 나눈 몫과 나머지를 이용.
+    # 3진법과 비슷하다고 생각하면되는데
+    # 0이 없으므로 나머지가 0으로 나왔을 때는 
+    # 몫에서 1을 빼주고 "4"를 answer에 붙여준다.
+    while n > 0 :
+        n, a = divmod(n, 3)
+        if a == 0 : n -= 1
+        answer = "412"[a] + answer
+
+    return answer
+
+
+설명이 깔끔하다. divmod를 활용하는 것도 아주 훌륭하다.
+
+
+
+4.
+def change124(n):
+    answer = ''
+
+    while n > 1:
+        if n % 3 == 0:
+            answer = '4' + answer
+            n -= 1
+        elif n % 3 == 1:
+            answer = '1' + answer
+        elif n % 3 == 2:
+            answer = '2' + answer
+
+        n //= 3
+
+
+    return answer
+
+이 코드도 깔끔하고 직관적이다.
+
+
+
+
+Java
+1.
+    public String change124(int n) {
+        String answer = "";
+        int k = 0;
+
+        while (n > 0) {
+            k = n % 3; //나머지  - 자릿수 (낮은자리부터)
+            n = n / 3; //몫        - 다음루프의 피제수
+            if (k == 0) {
+                n = n-1; //자리올림을 안 하는 효과
+                k = 4;
+            }
+            answer = k + answer;
+        }
+        return answer;
+    }
+
+역시 매우 깔끔한 코드
+
+
+
+
+C++
+1.
+    while(no > 0){
+    a = no % 3;
+    no = no / 3;
+    if (a == 0){
+        no -= 1;
+    }
+    answer = "412"[a] + answer;
+  }
+
+string에 index를 사용하는 방법이 아주 센스있다.

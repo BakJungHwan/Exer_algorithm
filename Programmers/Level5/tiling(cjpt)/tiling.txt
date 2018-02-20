@@ -1,0 +1,14 @@
+Question. 2Xn 타일링 --> https://programmers.co.kr/learn/challenge_codes/160
+
+Python
+1.
+def tiling(n):
+    a, b = 0, 1
+    for i in range(n):
+        a, b = b, a+b
+    b = int(str(b)[-5:])
+    return b
+
+이 방식을 좀 사용할 필요가 있다. a,b = b, a+b 이 스위치 형태는 특히 많이 쓰인다.
+문자열을 잘라 사용하는 방법이 보기좋다.
+
