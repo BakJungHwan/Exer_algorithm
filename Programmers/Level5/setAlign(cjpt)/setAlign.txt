@@ -1,0 +1,44 @@
+Question. 줄서는 방법 --> https://programmers.co.kr/learn/challenge_codes/50
+
+
+Python
+!!! python-list-pop() 메서드는 'index'를 매개변수로 받는다.
+
+1.
+def setAlign(n, k):
+    from math import factorial
+    answer = []
+    order = list(range(1,n+1))
+    while n!=0 :
+        fact = factorial(n-1)
+        #answer.append(order.pop(k//fact-1 if k%fact ==0 else k//fact))
+        answer.append(order.pop((k-1)//fact))
+        n,k = n-1, k%fact
+    return answer
+print(setAlign(3, 5))
+
+최초 구상은 while문이었는데, 재귀로 생각이 빠지면서 코드가 더러워진 것 같다.
+위와 같이 while로도 충분히 구현할 수 있다.
+
+
+2.
+from itertools import permutations
+
+def setAlign(n, k):
+    for index, value in enumerate(permutations(range(1, n+1))):
+        if index == k-1 :
+            return list(map(int, list(value)))
+print(setAlign(3, 5))
+
+itertools의 permutations를 활용한 코드이다. 라이브러리의 숙련도가 중요함을 새삼 느낀다.
+permutation은 가능한 순열을 str로 만들어주는 라이브러리다.
+속도는 매우 느리다..
+
+
+너무 혼란스러워서 잠시 쉬었다가할 생각이다.
+의외로 나누기로 접근하는게 머리가 복잡하다.
+
+
+문제분할과 재귀화는 '랜덤접근'의 가능성을 모두 점쳐본 다음에 시도할 방법이다.
+랜덤접근 형태의 문제해결이 가장 직관적이며 시간도 오래걸리지 않는다.
+이 경우 필요한 것이 양자화와 부호화이다.

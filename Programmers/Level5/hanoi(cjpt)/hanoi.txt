@@ -1,0 +1,70 @@
+Question. 하노이의 탑 --> https://programmers.co.kr/learn/challenge_codes/157
+
+양자화를 활용해서 풀었지만, 해당 답안들에서 이상적인 재귀구조를 확인할 수 있었다.
+
+
+Python
+1.
+def hanoi(n):
+    def move(fr, via, to, n):
+        if n == 1:
+            return [[fr, to]]
+        moves = []
+        moves.extend(move(fr, to, via, n-1))
+        moves.extend([[fr, to]])
+        moves.extend(move(via, fr, to, n-1))
+        return moves
+    return move(1, 2, 3, n)
+
+extend 메서드를 잠시 잊고 있었다.경유값을 주는 것도 방법이지만 좀 난잡해보인다.
+그런데 다시보니, via를 정하지 않으면, 다음 경로를 정해주는데 영향이 있다.
+가장 깔끔한 해답같다.
+
+
+
+Java
+java는 static한 값을 리턴값으로 사용할 수 없다.
+예로 배열을 가리키는 지시자는 리턴할 수 있지만, 배열은 리턴할 수 없다.
+{1,2} <-- 이런형태
+
+int a=7;
+int b=77;
+int[][] temp = {{a,b}};
+--> 이런형태는 아무리써도 상관없다.
+
+
+
+Java
+1.
+class Hanoi
+{
+  int moves;
+
+    public int[][] hanoi(int n){
+        //2차원 배열을 완성해 주세요.
+    moves = 0;
+        int[][] answer = new int[(int) Math.pow(2, n) - 1][2];
+        return hanoi(answer, n, 1, 2, 3);
+    }
+
+  private int[][] hanoi(int[][] board, int n, int start, int path, int end) {
+    if (n <= 0) return board;  // nothing to do
+    if (n == 1) {
+      board[moves][0] = start;
+      board[moves][1] = end;
+      moves++;
+      return board;
+    }
+    board = hanoi(board, n - 1, start, end, path);
+    board[moves][0] = start;
+    board[moves][1] = end;
+    moves++;
+    return hanoi(board, n - 1, path, start, end);
+  }
+
+hanoi함수를 override하는 센스가 대단하다.
+
+Java는 지시자가 들어갈 자리에 static 상수를 입력받지 못한다. 예를 들면,
+int[][] temp
+temp[0] = {1,2};
+이 녀석은 컴파일에러를 일으킨다. 배열을 중괄호 형태로 초기화하는 방법은 선언할 때만 사용가능하다.

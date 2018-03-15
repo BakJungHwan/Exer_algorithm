@@ -76,3 +76,38 @@ def sumMatrix(A,B):
     return answer
 
 한줄로 만들기. 이게 가장 맘에 든다.
+
+
+
+
+
+
+
+JS
+람다식, Array를 넘기면, value와 index가 넘어간다.
+
+1.
+function sumMatrix(A,B){
+    return A.map((a,i) => a.map((b, j) => b + B[i][j]));
+}
+
+// 아래는 테스트로 출력해 보기 위한 코드입니다.
+console.log(sumMatrix([[1,2], [2,3]], [[3,4],[5,6]])) 
+
+
+
+2.
+function sumMatrix(A,B){
+    var answer;
+  answer = A.map((a, i) => {
+    return a.map((val, idx) => {
+        val += B[i][idx];
+      return val;
+    })
+  })
+
+    return answer;
+}
+
+// 아래는 테스트로 출력해 보기 위한 코드입니다.
+console.log(sumMatrix([[1,2], [2,3]], [[3,4],[5,6]])) 

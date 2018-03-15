@@ -57,3 +57,9 @@ true
 String.getByte(encoding)과 String생성자의조합
 String utf8 = new String(eucStr.getBytes(“euc-kr”), “utf-8″);
 Compile시 -encoding [encoding방식] 옵션을 추가해준다.
+
+
+
+
+JS
+ - substr(지점, 길이)

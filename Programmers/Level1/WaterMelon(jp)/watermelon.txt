@@ -1,0 +1,19 @@
+Question. 수박수박 --> https://programmers.co.kr/learn/challenge_codes/107/solutions
+
+
+JS
+1.
+function waterMelon(n){
+  var result = "수박";
+   result = result.repeat(n-1).substring(0,n);
+  //함수를 완성하세요
+
+  return result;
+}
+
+// 실행을 위한 테스트코드입니다.
+console.log("n이 3인 경우: "+ waterMelon(3))
+console.log("n이 4인 경우: "+ waterMelon(4))
+
+
+- repeat를 활용한 반복이 가능하다.

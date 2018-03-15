@@ -1,0 +1,10 @@
+Question 정수 제곱근 판별하기 -> https://programmers.co.kr/learn/challenge_codes/120
+
+function nextSqaure(n){
+    var result = 0;
+    var n = Math.sqrt(n);
+    result = Number.isInteger(n) ? Math.pow(n+1, 2) : 'no';
+    return result;
+}
+
+아주 깔끔해 보인다.

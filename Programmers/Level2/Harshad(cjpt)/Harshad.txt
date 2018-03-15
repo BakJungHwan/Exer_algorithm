@@ -56,3 +56,12 @@ public class HarshadNumber{
 솔직히, 좋은 코드란 느낌은 안들지만 궁금한 점이 많아서 갖고 왔다.
 String의 valueOf(), split() 메서드를 찾아보려고 한다.
 Integer.parseInt()도 참고해볼만 하다.
+
+
+
+JS
+1.
+function Harshad(n){
+  return !(n%(n+'').split('').reduce(function (i, sum) {return +sum + +i;}));
+}
+split과 reduce의 연동을 다시 확인할 수 있다.
