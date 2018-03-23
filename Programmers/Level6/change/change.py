@@ -1,16 +1,13 @@
 def change(total, coin):
-    answer=[[]]
-    for i in range(1,total+1):
-        temp1=[]
-        for j in coin:
-            if i==j:
-                temp1.append([i])
-        for j in coin:
-            if i-j>0:
-                for bf in answer[i-j]:
-                    temp2=bf+[j]
-                    temp1.append(temp2)
-            answer.append(temp1)
+    answer=0
+    if len(coin)==1:
+        if total % coin[0]==0:
+            return 1
+        return 0
+    if total % coin[-1]==0:
+        answer+=1
+    while total>0:
+        answer+=change(total,coin[:-1])
+        total-=coin[-1]
     return answer
-
-print(change(5, [1, 2, 5]))
+print(change(10, [1, 2, 6]))
